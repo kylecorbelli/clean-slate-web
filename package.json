@@ -2,25 +2,22 @@
   "name": "clean-slate-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kylecorbelli.github.io/clean-slate-web",
   "dependencies": {
     "@types/jest": "^20.0.4",
     "@types/node": "^8.0.14",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
-    "gh-pages": "^1.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.4.0"
+    "react-scripts-ts": "2.4.0",
+    "surge": "^0.19.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts-ts eject"
   }
 }

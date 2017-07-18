@@ -5,6 +5,6 @@ deployment:
   production:
     branch: master
     commands:
-      - git config --global user.email $GH_EMAIL
-      - git config --global user.name $GH_NAME
-      - npm run deploy
+      - npm run build
+      - cp ~/clean-slate-web/build/index.html ~/clean-slate-web/build/200.html
+      - surge --project ~/clean-slate-web/build --domain cleanslate.surge.sh
