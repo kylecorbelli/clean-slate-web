@@ -7,4 +7,4 @@ deployment:
     commands:
       - npm run build
       - cp ~/clean-slate-web/build/index.html ~/clean-slate-web/build/200.html
-      - surge --project ~/clean-slate-web/build --domain cleanslate.surge.sh
+      - ~/clean-slate-web/node_modules/.bin/surge --project ~/clean-slate-web/build --domain cleanslate.surge.sh
