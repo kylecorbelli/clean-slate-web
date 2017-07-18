@@ -5,6 +5,4 @@ deployment:
   production:
     branch: master
     commands:
-      - npm run build
-      - cp ~/clean-slate-web/build/index.html ~/clean-slate-web/build/200.html
-      - surge --project ~/clean-slate-web/build --domain cleanslate.surge.sh
+      - npm run deploy
