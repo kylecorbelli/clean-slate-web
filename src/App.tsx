@@ -1,4 +1,5 @@
-import * as React from 'react';
+import * as React from 'react'
+import Greeting from './components/Greeting'
 import './App.css';
 
 const logo = require('./logo.svg');
@@ -9,7 +10,7 @@ class App extends React.Component<{}, {}> {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Clean Slate on Surge.sh</h2>
+          <Greeting text="This here is TypeScript and React" />
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
