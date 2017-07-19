@@ -9,6 +9,8 @@ interface State {
 }
 
 export default class Greeting extends React.Component<Props, State> {
+  private nameInput: HTMLInputElement | null
+
   constructor (props: Props) {
     super(props)
     this.state = {
@@ -21,6 +23,12 @@ export default class Greeting extends React.Component<Props, State> {
     this.setState({
       name: event.currentTarget.value,
     })
+  }
+
+  componentDidMount (): void {
+    if (this.nameInput) {
+      this.nameInput.focus()
+    }
   }
 
   render (): JSX.Element {
@@ -36,6 +44,7 @@ export default class Greeting extends React.Component<Props, State> {
           type="text"
           value={name}
           onChange={this.handleInputChange}
+          ref={node => { this.nameInput = node }}
         />
         <h1>{greeting + (name ? ` ${name}!` : '!')}</h1>
       </div>
