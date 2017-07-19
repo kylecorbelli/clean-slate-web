@@ -8,8 +8,10 @@ interface State {
   readonly name: string
 }
 
+type DOMInputNode = HTMLInputElement | null
+
 export default class Greeting extends React.Component<Props, State> {
-  private nameInput: HTMLInputElement | null
+  private nameInput: DOMInputNode
 
   constructor (props: Props) {
     super(props)
@@ -44,7 +46,7 @@ export default class Greeting extends React.Component<Props, State> {
           type="text"
           value={name}
           onChange={this.handleInputChange}
-          ref={node => { this.nameInput = node }}
+          ref={node => this.nameInput = node}
         />
         <h1>{greeting + (name ? ` ${name}!` : '!')}</h1>
       </div>
