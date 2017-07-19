@@ -17,10 +17,9 @@ export default class Greeting extends React.Component<Props, State> {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-  handleInputChange (event: React.SyntheticEvent<HTMLInputElement>): void {
-    const target = event.target as HTMLInputElement
+  handleInputChange (event: React.FormEvent<HTMLInputElement>): void {
     this.setState({
-      name: target.value,
+      name: event.currentTarget.value,
     })
   }
 
