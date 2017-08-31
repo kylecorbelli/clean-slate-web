@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import App from './components/App'
 import SiteHeader from './components/SiteHeader'
-import RegisterScreen from './components/RegisterScreen'
+import RegisterScreenConnected from './containers/RegisterScreenConnected'
 import SignInScreen from './components/SignInScreen'
 
 const Routes = (): JSX.Element => (
@@ -13,7 +13,7 @@ const Routes = (): JSX.Element => (
     <div>
       <SiteHeader />
       <Route exact={true} path="/" component={App} />
-      <Route path="/register" component={RegisterScreen} />
+      <Route path="/register" component={RegisterScreenConnected} />
       <Route path="/signin" component={SignInScreen} />
     </div>
   </Router>
