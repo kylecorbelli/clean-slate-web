@@ -141,13 +141,13 @@ export default class RegisterScreen extends React.Component<Props, State> {
           </div>
           {hasFormErrors &&
             <ul>
-            {formErrors.map((errorMessage, index) => (
-              <li className="RegisterScreen__form-errors" key={`form-error-${index}`}>
-                {errorMessage}
-              </li>
-            ))}
+              {formErrors.map((errorMessage, index) => (
+                <li className="RegisterScreen__form-errors" key={`form-error-${index}`}>
+                  {errorMessage}
+                </li>
+              ))}
             </ul>}
-          <button type="submit">Register</button>
+          <button className="RegisterScreen__form-submit-button" type="submit">Register</button>
         </form>
       </div>
     )
