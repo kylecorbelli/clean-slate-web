@@ -1,8 +1,8 @@
-import {
-  ReduxAction,
-  ReduxState,
-} from '../types'
+import { combineReducers } from 'redux'
+import currentUser from './current-user'
 
-const rootReducer = (state: ReduxState, action: ReduxAction): ReduxState => state
+const rootReducer = combineReducers({
+  currentUser,
+})
 
 export default rootReducer
