@@ -30,11 +30,25 @@ export const VERIFY_TOKEN_REQUEST_SUCCEEDED: VERIFY_TOKEN_REQUEST_SUCCEEDED = 'V
 export type VERIFY_TOKEN_REQUEST_FAILED = 'VERIFY_TOKEN_REQUEST_FAILED'
 export const VERIFY_TOKEN_REQUEST_FAILED: VERIFY_TOKEN_REQUEST_FAILED = 'VERIFY_TOKEN_REQUEST_FAILED'
 
+export type SIGNIN_REQUEST_SENT = 'SIGNIN_REQUEST_SENT'
+export const SIGNIN_REQUEST_SENT: SIGNIN_REQUEST_SENT = 'SIGNIN_REQUEST_SENT'
+
+export type SIGNIN_REQUEST_SUCCEEDED = 'SIGNIN_REQUEST_SUCCEEDED'
+export const SIGNIN_REQUEST_SUCCEEDED: SIGNIN_REQUEST_SUCCEEDED = 'SIGNIN_REQUEST_SUCCEEDED'
+
+export type SIGNIN_REQUEST_FAILED = 'SIGNIN_REQUEST_FAILED'
+export const SIGNIN_REQUEST_FAILED: SIGNIN_REQUEST_FAILED = 'SIGNIN_REQUEST_FAILED'
+
 export interface UserRegistrationDetails {
   readonly firstName: string
   readonly email: string
   readonly password: string
   readonly passwordConfirmation: string
+}
+
+export interface UserSignInCredentials {
+  readonly email: string
+  readonly password: string
 }
 
 export interface RegistrationRequestSentAction {
@@ -67,9 +81,27 @@ export interface VerifyTokenRequestFailedAction {
   readonly type: VERIFY_TOKEN_REQUEST_FAILED
 }
 
+export interface SignInRequestSentAction {
+  readonly type: SIGNIN_REQUEST_SENT
+}
+
+export interface SignInRequestSucceededAction {
+  readonly type: SIGNIN_REQUEST_SUCCEEDED
+  readonly payload: {
+    readonly userAttributes: UserAttributes
+  }
+}
+
+export interface SignInRequestFailedAction {
+  readonly type: SIGNIN_REQUEST_FAILED
+}
+
 export type ReduxAction = RegistrationRequestSentAction
   | RegistrationRequestSucceededAction
   | RegistrationRequestFailedAction
   | VerifyTokenRequestSentAction
   | VerifyTokenRequestSucceededAction
   | VerifyTokenRequestFailedAction
+  | SignInRequestSentAction
+  | SignInRequestSucceededAction
+  | SignInRequestFailedAction

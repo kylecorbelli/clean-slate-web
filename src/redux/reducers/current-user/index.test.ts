@@ -6,6 +6,9 @@ import {
   VerifyTokenRequestSentAction,
   VerifyTokenRequestSucceededAction,
   VerifyTokenRequestFailedAction,
+  SignInRequestSentAction,
+  SignInRequestSucceededAction,
+  SignInRequestFailedAction,
   User,
   UserAttributes,
 } from '../../types'
@@ -16,6 +19,9 @@ import {
   verifyTokenRequestSent,
   verifyTokenRequestSucceeded,
   verifyTokenRequestFailed,
+  signInRequestSent,
+  signInRequestSucceeded,
+  signInRequestFailed,
 } from '../../actions'
 
 describe('currentUser', () => {
@@ -91,6 +97,39 @@ describe('currentUser', () => {
       }
       const action: VerifyTokenRequestFailedAction = verifyTokenRequestFailed()
       const newState: User = currentUser(loggedInState, action)
+      expect(newState.isLoading).toBe(false)
+      expect(newState.isLoggedIn).toBe(false)
+    })
+  })
+
+  describe('SIGNIN_REQUEST_SENT', () => {
+    it('indicates that the current user is loading', () => {
+      const action: SignInRequestSentAction = signInRequestSent()
+      const newState: User = currentUser(undefined, action)
+      expect(newState.isLoading).toBe(true)
+    })
+  })
+
+  describe('SIGNIN_REQUEST_SUCCEEDED', () => {
+    it('sets the current user and indicates that it is no longer loading and is logged in', () => {
+      const newUserAttributes: UserAttributes = {
+        firstName: 'Rick',
+      }
+      const action: SignInRequestSucceededAction = signInRequestSucceeded(newUserAttributes)
+      const newState: User = currentUser(alreadyLoadingState, action)
+      const expectedNewState: User = {
+        attributes: newUserAttributes,
+        isLoading: false,
+        isLoggedIn: true,
+      }
+      expect(newState).toEqual(expectedNewState)
+    })
+  })
+
+  describe('SIGNIN_REQUEST_FAILED', () => {
+    it('indicates that the current user is no longer loading and is not logged in', () => {
+      const action: SignInRequestFailedAction = signInRequestFailed()
+      const newState: User = currentUser(alreadyLoadingState, action)
       expect(newState.isLoading).toBe(false)
       expect(newState.isLoggedIn).toBe(false)
     })

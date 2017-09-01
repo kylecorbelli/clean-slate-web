@@ -21,7 +21,7 @@ const SiteHeader = ({
       {isLoggedIn && (
         <p>Welcome {firstName}!</p>
       )}
-      {!isLoggedIn && !isLoading && (
+      {!isLoggedIn && (
         <div>
           <Link to="/register">Register</Link>
           <br />
