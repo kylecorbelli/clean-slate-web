@@ -82,7 +82,7 @@ export default class RegisterScreen extends React.Component<Props, State> {
         password,
         passwordConfirmation,
       })
-      history.replace('/signin')
+      history.replace('/')
     } catch (error) {
       this.setState({
         formErrors: error.response.data.errors.full_messages,
