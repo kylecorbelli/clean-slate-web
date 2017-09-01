@@ -41,25 +41,25 @@ export default class RegisterScreen extends React.Component<Props, State> {
 
   public updateFirstName (event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
-      firstName: event.currentTarget.value
+      firstName: event.currentTarget.value,
     })
   }
 
   public updateEmail (event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
-      email: event.currentTarget.value
+      email: event.currentTarget.value,
     })
   }
 
   public updatePassword (event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
-      password: event.currentTarget.value
+      password: event.currentTarget.value,
     })
   }
 
   public updatePasswordConfirmation (event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
-      passwordConfirmation: event.currentTarget.value
+      passwordConfirmation: event.currentTarget.value,
     })
   }
 
@@ -99,16 +99,16 @@ export default class RegisterScreen extends React.Component<Props, State> {
       <div className="RegisterScreen">
         <h2>Register</h2>
         <form className="RegisterScreen__form" onSubmit={this.submitForm}>
-        <div className="RegisterScreen__input-group">
-          <label>
-            <p>First Name:</p>
-            <input
-              type="string"
-              className="RegisterScreen__input-field"
-              onChange={this.updateFirstName}
-            />
-          </label>
-        </div>
+          <div className="RegisterScreen__input-group">
+            <label>
+              <p>First Name:</p>
+              <input
+                type="string"
+                className="RegisterScreen__input-field"
+                onChange={this.updateFirstName}
+              />
+            </label>
+          </div>
           <div className="RegisterScreen__input-group">
             <label>
               <p>Email:</p>
@@ -142,7 +142,7 @@ export default class RegisterScreen extends React.Component<Props, State> {
           {hasFormErrors &&
             <ul>
               {formErrors.map((errorMessage, index) => (
-                <li className="RegisterScreen__form-errors" key={`form-error-${index}`}>
+                <li className="RegisterScreen__form-error" key={`form-error-${index}`}>
                   {errorMessage}
                 </li>
               ))}

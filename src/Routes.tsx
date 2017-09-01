@@ -6,7 +6,7 @@ import {
 import App from './components/App'
 import SiteHeaderConnected from './containers/SiteHeaderConnected'
 import RegisterScreenConnected from './containers/RegisterScreenConnected'
-import SignInScreen from './components/SignInScreen'
+import SignInScreenConnected from './containers/SignInScreenConnected'
 
 const Routes = (): JSX.Element => (
   <Router>
@@ -14,7 +14,7 @@ const Routes = (): JSX.Element => (
       <SiteHeaderConnected />
       <Route exact={true} path="/" component={App} />
       <Route path="/register" component={RegisterScreenConnected} />
-      <Route path="/signin" component={SignInScreen} />
+      <Route path="/signin" component={SignInScreenConnected} />
     </div>
   </Router>
 )

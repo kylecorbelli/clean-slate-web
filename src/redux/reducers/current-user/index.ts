@@ -7,6 +7,9 @@ import {
   VERIFY_TOKEN_REQUEST_SENT,
   VERIFY_TOKEN_REQUEST_SUCCEEDED,
   VERIFY_TOKEN_REQUEST_FAILED,
+  SIGNIN_REQUEST_SENT,
+  SIGNIN_REQUEST_SUCCEEDED,
+  SIGNIN_REQUEST_FAILED,
 } from '../../types'
 import initialState from '../../initial-state'
 
@@ -18,12 +21,14 @@ const currentUser = (state: User = initialUser, action: ReduxAction): User => {
   switch (action.type) {
     case REGISTRATION_REQUEST_SENT:
     case VERIFY_TOKEN_REQUEST_SENT:
+    case SIGNIN_REQUEST_SENT:
       return {
         ...state,
         isLoading: true,
       }
     case REGISTRATION_REQUEST_SUCCEEDED:
     case VERIFY_TOKEN_REQUEST_SUCCEEDED:
+    case SIGNIN_REQUEST_SUCCEEDED:
       const { userAttributes } = action.payload
       return {
         ...state,
@@ -33,6 +38,7 @@ const currentUser = (state: User = initialUser, action: ReduxAction): User => {
       }
     case REGISTRATION_REQUEST_FAILED:
     case VERIFY_TOKEN_REQUEST_FAILED:
+    case SIGNIN_REQUEST_FAILED:
       return {
         ...state,
         isLoading: false,
