@@ -10,6 +10,9 @@ import {
   SIGNIN_REQUEST_SENT,
   SIGNIN_REQUEST_SUCCEEDED,
   SIGNIN_REQUEST_FAILED,
+  SIGNOUT_REQUEST_SENT,
+  SIGNOUT_REQUEST_SUCCEEDED,
+  SIGNOUT_REQUEST_FAILED,
 } from '../../types'
 import initialState from '../../initial-state'
 
@@ -22,6 +25,7 @@ const currentUser = (state: User = initialUser, action: ReduxAction): User => {
     case REGISTRATION_REQUEST_SENT:
     case VERIFY_TOKEN_REQUEST_SENT:
     case SIGNIN_REQUEST_SENT:
+    case SIGNOUT_REQUEST_SENT:
       return {
         ...state,
         isLoading: true,
@@ -43,6 +47,21 @@ const currentUser = (state: User = initialUser, action: ReduxAction): User => {
         ...state,
         isLoading: false,
         isLoggedIn: false,
+      }
+    case SIGNOUT_REQUEST_SUCCEEDED:
+      return {
+        ...state,
+        attributes: {
+          ...state.attributes,
+          firstName: null,
+        },
+        isLoading: false,
+        isLoggedIn: false,
+      }
+    case SIGNOUT_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
       }
     default:
       return state

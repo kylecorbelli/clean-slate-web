@@ -1,0 +1,7 @@
+.SiteHeader__sign-out {
+  cursor: pointer;
+}
+
+.SiteHeader__sign-out:hover {
+  color: darkgray;
+}
