@@ -7,10 +7,24 @@ import {
   REGISTRATION_REQUEST_SENT,
   REGISTRATION_REQUEST_SUCCEEDED,
   REGISTRATION_REQUEST_FAILED,
+  VERIFY_TOKEN_REQUEST_SENT,
+  VERIFY_TOKEN_REQUEST_SUCCEEDED,
+  VERIFY_TOKEN_REQUEST_FAILED,
   RegistrationRequestSentAction,
   RegistrationRequestSucceededAction,
   RegistrationRequestFailedAction,
+  VerifyTokenRequestSentAction,
+  VerifyTokenRequestSucceededAction,
+  VerifyTokenRequestFailedAction,
 } from '../types'
+import {
+  AuthResponse,
+  VerificationParams,
+} from '../../types'
+import {
+  setAuthHeaders,
+  persistAuthHeadersInLocalStorage,
+} from '../../services/auth'
 
 export const registrationRequestSent = (): RegistrationRequestSentAction => ({
   type: REGISTRATION_REQUEST_SENT,
@@ -28,7 +42,7 @@ export const registrationRequestFailed = (): RegistrationRequestFailedAction => 
 })
 
 export const registerUser = (
-  userRegistrationDetails: UserRegistrationDetails
+  userRegistrationDetails: UserRegistrationDetails,
 ) => async function (dispatch: Dispatch<{}>): Promise<void> {
   dispatch(registrationRequestSent())
   const {
@@ -38,7 +52,7 @@ export const registerUser = (
     passwordConfirmation,
   } = userRegistrationDetails
   try {
-    await axios({
+    const response: AuthResponse = await axios({
       method: 'POST',
       url: authUrl,
       data: {
@@ -48,14 +62,55 @@ export const registerUser = (
         password_confirmation: passwordConfirmation,
       },
     })
+    setAuthHeaders(response.headers)
+    persistAuthHeadersInLocalStorage(response.headers)
     const user: User = {
       firstName,
-      isLoggedIn: false,
+      isLoggedIn: true,
       isLoading: false,
     }
     dispatch(registrationRequestSucceeded(user))
   } catch (error) {
     dispatch(registrationRequestFailed())
     throw error
+  }
+}
+
+export const verifyTokenRequestSent = (): VerifyTokenRequestSentAction => ({
+  type: VERIFY_TOKEN_REQUEST_SENT,
+})
+
+export const verifyTokenRequestSucceeded = (user: User): VerifyTokenRequestSucceededAction => ({
+  type: VERIFY_TOKEN_REQUEST_SUCCEEDED,
+  payload: {
+    user,
+  },
+})
+
+export const verifyTokenRequestFailed = (): VerifyTokenRequestFailedAction => ({
+  type: VERIFY_TOKEN_REQUEST_FAILED,
+})
+
+export const verifyToken = (
+  verificationParams: VerificationParams,
+) => async function(dispatch: Dispatch<{}>): Promise<void> {
+  dispatch(verifyTokenRequestSent())
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: `${authUrl}/validate_token`,
+      params: verificationParams,
+    })
+    const { name } = response.data.data
+    setAuthHeaders(response.headers)
+    persistAuthHeadersInLocalStorage(response.headers)
+    const user: User = {
+      firstName: name,
+      isLoggedIn: true,
+      isLoading: false,
+    }
+    dispatch(verifyTokenRequestSucceeded(user))
+  } catch (error) {
+    dispatch(verifyTokenRequestFailed())
   }
 }
