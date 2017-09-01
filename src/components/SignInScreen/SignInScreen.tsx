@@ -63,7 +63,6 @@ export default class SignInScreen extends React.Component<Props, State> {
         formErrors: error.response.data.errors,
       })
     }
-    console.log('submitting form')
   }
 
   public render (): JSX.Element {
@@ -98,7 +97,7 @@ export default class SignInScreen extends React.Component<Props, State> {
           {hasFormErrors &&
             <ul>
               {formErrors.map((errorMessage, index) => (
-                <li className="SignInScreen__form-errors" key={`form-error-${index}`}>
+                <li className="SignInScreen__form-error" key={`form-error-${index}`}>
                   {errorMessage}
                 </li>
               ))}
