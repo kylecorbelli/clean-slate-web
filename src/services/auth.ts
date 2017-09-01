@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { AuthHeaders } from '../types'
 
-// Unit test this:
 export const setAuthHeaders = (headers: AuthHeaders): void => {
   const {
     'access-token': accessToken,
@@ -17,7 +16,6 @@ export const setAuthHeaders = (headers: AuthHeaders): void => {
   axios.defaults.headers.common.uid = uid
 }
 
-// Unit test this:
 export const persistAuthHeadersInLocalStorage = (headers: AuthHeaders): void => {
   const {
     'access-token': accessToken,
@@ -26,14 +24,13 @@ export const persistAuthHeadersInLocalStorage = (headers: AuthHeaders): void => 
     expiry,
     uid,
   } = headers
-  localStorage.setItem('accessToken', accessToken)
-  localStorage.setItem('tokenType', tokenType)
+  localStorage.setItem('access-token', accessToken)
+  localStorage.setItem('token-type', tokenType)
   localStorage.setItem('client', client)
   localStorage.setItem('expiry', expiry)
   localStorage.setItem('uid', uid)
 }
 
-// Unit test this:
 export const deleteAuthHeaders = (): void => {
   delete axios.defaults.headers.common['access-token']
   delete axios.defaults.headers.common['token-type']
@@ -42,7 +39,6 @@ export const deleteAuthHeaders = (): void => {
   delete axios.defaults.headers.common.uid
 }
 
-// Unit test this:
 export const deleteAuthHeadersFromLocalStorage = (): void => {
   localStorage.remove('accessToken')
   localStorage.remove('tokenType')

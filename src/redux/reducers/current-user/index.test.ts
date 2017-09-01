@@ -7,6 +7,7 @@ import {
   VerifyTokenRequestSucceededAction,
   VerifyTokenRequestFailedAction,
   User,
+  UserAttributes,
 } from '../../types'
 import {
   registrationRequestSent,
@@ -19,7 +20,9 @@ import {
 
 describe('currentUser', () => {
   const alreadyLoadingState: User = {
-    firstName: null,
+    attributes: {
+      firstName: null,
+    },
     isLoading: true,
     isLoggedIn: false,
   }
@@ -33,15 +36,18 @@ describe('currentUser', () => {
   })
 
   describe('REGISTRATION_REQUEST_SUCCEEDED', () => {
-    it('sets the current user and indicates that it is no longer loading but not yet logged in', () => {
-      const newUser: User = {
+    it('sets the current user and indicates that it is no longer loading and is logged in', () => {
+      const newUserAttributes: UserAttributes = {
         firstName: 'Rick',
+      }
+      const action: RegistrationRequestSucceededAction = registrationRequestSucceeded(newUserAttributes)
+      const newState: User = currentUser(alreadyLoadingState, action)
+      const expectedNewState: User = {
+        attributes: newUserAttributes,
         isLoading: false,
         isLoggedIn: true,
       }
-      const action: RegistrationRequestSucceededAction = registrationRequestSucceeded(newUser)
-      const newState: User = currentUser(alreadyLoadingState, action)
-      expect(newState).toEqual(newUser)
+      expect(newState).toEqual(expectedNewState)
     })
   })
 
@@ -62,15 +68,18 @@ describe('currentUser', () => {
   })
 
   describe('VERIFY_TOKEN_REQUEST_SUCCEEDED', () => {
-    it('sets the current user and indicates that it is no longer loading but not yet logged in', () => {
-      const newUser: User = {
-        firstName: 'Rick',
+    it('sets the current user and indicates that it is no longer loading and is logged in', () => {
+      const newUserAttributes: UserAttributes = {
+        firstName: 'Morty',
+      }
+      const action: VerifyTokenRequestSucceededAction = verifyTokenRequestSucceeded(newUserAttributes)
+      const newState: User = currentUser(alreadyLoadingState, action)
+      const expectedNewState: User = {
+        attributes: newUserAttributes,
         isLoading: false,
         isLoggedIn: true,
       }
-      const action: VerifyTokenRequestSucceededAction = verifyTokenRequestSucceeded(newUser)
-      const newState: User = currentUser(alreadyLoadingState, action)
-      expect(newState).toEqual(newUser)
+      expect(newState).toEqual(expectedNewState)
     })
   })
 

@@ -24,9 +24,10 @@ const currentUser = (state: User = initialUser, action: ReduxAction): User => {
       }
     case REGISTRATION_REQUEST_SUCCEEDED:
     case VERIFY_TOKEN_REQUEST_SUCCEEDED:
-      const { user } = action.payload
+      const { userAttributes } = action.payload
       return {
-        ...user,
+        ...state,
+        attributes: { ...userAttributes },
         isLoading: false,
         isLoggedIn: true,
       }

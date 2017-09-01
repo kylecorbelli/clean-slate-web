@@ -9,9 +9,9 @@ import { verifyToken } from './redux/actions'
 
 const store = configureStore()
 
-if (localStorage.getItem('accessToken')) {
+if (localStorage.getItem('access-token')) {
   const verificationParams: VerificationParams = {
-    'access-token': localStorage.getItem('accessToken') as string,
+    'access-token': localStorage.getItem('access-token') as string,
     client: localStorage.getItem('client') as string,
     uid: localStorage.getItem('uid') as string,
   }

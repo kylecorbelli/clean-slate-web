@@ -6,12 +6,15 @@ interface Props {
   readonly currentUser: User
 }
 
-const SiteHeader = ({ currentUser }: Props): JSX.Element => {
-  const {
-    firstName,
+const SiteHeader = ({
+  currentUser: {
+    attributes: {
+      firstName,
+    },
     isLoading,
     isLoggedIn,
-  } = currentUser
+  },
+}: Props): JSX.Element => {
   return (
     <div className="SiteHeader">
       <Link to="/"><h1>Clean Slate</h1></Link>

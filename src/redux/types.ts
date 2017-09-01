@@ -1,7 +1,11 @@
+export interface UserAttributes {
+  readonly firstName: string | null
+}
+
 export interface User {
   readonly isLoggedIn: boolean
   readonly isLoading: boolean
-  readonly firstName: string | null
+  readonly attributes: UserAttributes
 }
 
 export interface ReduxState {
@@ -40,7 +44,7 @@ export interface RegistrationRequestSentAction {
 export interface RegistrationRequestSucceededAction {
   readonly type: REGISTRATION_REQUEST_SUCCEEDED
   readonly payload: {
-    readonly user: User
+    readonly userAttributes: UserAttributes
   }
 }
 
@@ -55,7 +59,7 @@ export interface VerifyTokenRequestSentAction {
 export interface VerifyTokenRequestSucceededAction {
   readonly type: VERIFY_TOKEN_REQUEST_SUCCEEDED
   readonly payload: {
-    readonly user: User
+    readonly userAttributes: UserAttributes
   }
 }
 

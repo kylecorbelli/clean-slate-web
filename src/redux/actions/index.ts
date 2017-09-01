@@ -2,7 +2,7 @@ import axios from 'axios'
 import { authUrl } from '../../constants'
 import { Dispatch } from 'redux'
 import {
-  User,
+  UserAttributes,
   UserRegistrationDetails,
   REGISTRATION_REQUEST_SENT,
   REGISTRATION_REQUEST_SUCCEEDED,
@@ -30,10 +30,10 @@ export const registrationRequestSent = (): RegistrationRequestSentAction => ({
   type: REGISTRATION_REQUEST_SENT,
 })
 
-export const registrationRequestSucceeded = (user: User): RegistrationRequestSucceededAction => ({
+export const registrationRequestSucceeded = (userAttributes: UserAttributes): RegistrationRequestSucceededAction => ({
   type: REGISTRATION_REQUEST_SUCCEEDED,
   payload: {
-    user,
+    userAttributes,
   },
 })
 
@@ -64,12 +64,10 @@ export const registerUser = (
     })
     setAuthHeaders(response.headers)
     persistAuthHeadersInLocalStorage(response.headers)
-    const user: User = {
+    const userAttributes: UserAttributes = {
       firstName,
-      isLoggedIn: true,
-      isLoading: false,
     }
-    dispatch(registrationRequestSucceeded(user))
+    dispatch(registrationRequestSucceeded(userAttributes))
   } catch (error) {
     dispatch(registrationRequestFailed())
     throw error
@@ -80,10 +78,10 @@ export const verifyTokenRequestSent = (): VerifyTokenRequestSentAction => ({
   type: VERIFY_TOKEN_REQUEST_SENT,
 })
 
-export const verifyTokenRequestSucceeded = (user: User): VerifyTokenRequestSucceededAction => ({
+export const verifyTokenRequestSucceeded = (userAttributes: UserAttributes): VerifyTokenRequestSucceededAction => ({
   type: VERIFY_TOKEN_REQUEST_SUCCEEDED,
   payload: {
-    user,
+    userAttributes,
   },
 })
 
@@ -104,12 +102,10 @@ export const verifyToken = (
     const { name } = response.data.data
     setAuthHeaders(response.headers)
     persistAuthHeadersInLocalStorage(response.headers)
-    const user: User = {
+    const userAttributes: UserAttributes = {
       firstName: name,
-      isLoggedIn: true,
-      isLoading: false,
     }
-    dispatch(verifyTokenRequestSucceeded(user))
+    dispatch(verifyTokenRequestSucceeded(userAttributes))
   } catch (error) {
     dispatch(verifyTokenRequestFailed())
   }
