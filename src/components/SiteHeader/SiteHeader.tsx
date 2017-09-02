@@ -10,7 +10,7 @@ import './SiteHeader.css'
 interface Props {
   readonly currentUser: User
   readonly signOutUser: (userSignOutCredentials: UserSignOutCredentials) => (dispatch: Dispatch<{}>) => Promise<void>
-  readonly history : {
+  readonly history: {
     readonly replace: (path: string) => void
   }
 }
