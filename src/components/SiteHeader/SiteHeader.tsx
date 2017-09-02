@@ -38,7 +38,6 @@ export default class SiteHeader extends React.Component<Props, State> {
       history.replace('/')
     } catch (error) {
       // Probably want to use the all-purpose alert system:
-      console.log('oops')
     }
   }
 
