@@ -178,7 +178,7 @@ describe('currentUser', () => {
   })
 
   describe('SIGNOUT_REQUEST_FAILED', () => {
-    it('indicates that the user is not loading but is stilled logged it', () => {
+    it('indicates that the user is not loading but is stilled logged in', () => {
       const action: SignOutRequestFailedAction = signOutRequestFailed()
       const newState: User = currentUser(loggedInUserWithRequestAlreadySent, action)
       const expectedNewState: User = {
