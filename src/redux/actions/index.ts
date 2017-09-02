@@ -5,6 +5,7 @@ import {
   UserAttributes,
   UserRegistrationDetails,
   UserSignInCredentials,
+  UserSignOutCredentials,
   REGISTRATION_REQUEST_SENT,
   REGISTRATION_REQUEST_SUCCEEDED,
   REGISTRATION_REQUEST_FAILED,
@@ -14,6 +15,9 @@ import {
   SIGNIN_REQUEST_SENT,
   SIGNIN_REQUEST_SUCCEEDED,
   SIGNIN_REQUEST_FAILED,
+  SIGNOUT_REQUEST_SENT,
+  SIGNOUT_REQUEST_SUCCEEDED,
+  SIGNOUT_REQUEST_FAILED,
   RegistrationRequestSentAction,
   RegistrationRequestSucceededAction,
   RegistrationRequestFailedAction,
@@ -23,6 +27,9 @@ import {
   SignInRequestSentAction,
   SignInRequestSucceededAction,
   SignInRequestFailedAction,
+  SignOutRequestSentAction,
+  SignOutRequestSucceededAction,
+  SignOutRequestFailedAction,
 } from '../types'
 import {
   AuthResponse,
@@ -30,7 +37,9 @@ import {
 } from '../../types'
 import {
   setAuthHeaders,
+  deleteAuthHeaders,
   persistAuthHeadersInLocalStorage,
+  deleteAuthHeadersFromLocalStorage,
 } from '../../services/auth'
 
 export const registrationRequestSent = (): RegistrationRequestSentAction => ({
@@ -159,6 +168,37 @@ export const signInUser = (
     dispatch(signInRequestSucceeded(userAttributes))
   } catch (error) {
     dispatch(signInRequestFailed())
+    throw error
+  }
+}
+
+export const signOutRequestSent = (): SignOutRequestSentAction => ({
+  type: SIGNOUT_REQUEST_SENT,
+})
+
+export const signOutRequestSucceeded = (): SignOutRequestSucceededAction => ({
+  type: SIGNOUT_REQUEST_SUCCEEDED,
+})
+
+export const signOutRequestFailed = (): SignOutRequestFailedAction => ({
+  type: SIGNOUT_REQUEST_FAILED,
+})
+
+export const signOutUser = (
+  userSignOutCredentials: UserSignOutCredentials,
+) => async function (dispatch: Dispatch<{}>): Promise<void> {
+  dispatch(signOutRequestSent())
+  try {
+    await axios({
+      method: 'DELETE',
+      url: `${authUrl}/sign_out`,
+      data: userSignOutCredentials,
+    })
+    deleteAuthHeaders()
+    deleteAuthHeadersFromLocalStorage()
+    dispatch(signOutRequestSucceeded())
+  } catch (error) {
+    dispatch(signOutRequestFailed())
     throw error
   }
 }

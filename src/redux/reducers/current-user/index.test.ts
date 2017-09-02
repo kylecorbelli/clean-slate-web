@@ -9,6 +9,9 @@ import {
   SignInRequestSentAction,
   SignInRequestSucceededAction,
   SignInRequestFailedAction,
+  SignOutRequestSentAction,
+  SignOutRequestSucceededAction,
+  SignOutRequestFailedAction,
   User,
   UserAttributes,
 } from '../../types'
@@ -22,6 +25,9 @@ import {
   signInRequestSent,
   signInRequestSucceeded,
   signInRequestFailed,
+  signOutRequestSent,
+  signOutRequestSucceeded,
+  signOutRequestFailed,
 } from '../../actions'
 
 describe('currentUser', () => {
@@ -31,6 +37,19 @@ describe('currentUser', () => {
     },
     isLoading: true,
     isLoggedIn: false,
+  }
+
+  const loggedInUser: User = {
+    attributes: {
+      firstName: 'Snowball',
+    },
+    isLoading: false,
+    isLoggedIn: true,
+  }
+
+  const loggedInUserWithRequestAlreadySent: User = {
+    ...loggedInUser,
+    isLoading: true,
   }
 
   describe('REGISTRATION_REQUEST_SENT', () => {
@@ -132,6 +151,41 @@ describe('currentUser', () => {
       const newState: User = currentUser(alreadyLoadingState, action)
       expect(newState.isLoading).toBe(false)
       expect(newState.isLoggedIn).toBe(false)
+    })
+  })
+
+  describe('SIGNOUT_REQUEST_SENT', () => {
+    it('indicates that the current user is loading', () => {
+      const action: SignOutRequestSentAction = signOutRequestSent()
+      const newState: User = currentUser(loggedInUser, action)
+      expect(newState.isLoading).toBe(true)
+    })
+  })
+
+  describe('SIGNOUT_REQUEST_SUCCEEDED', () => {
+    it('indicates that the current user is not loading, is logged out, and has empty attributes', () => {
+      const action: SignOutRequestSucceededAction = signOutRequestSucceeded()
+      const newState: User = currentUser(loggedInUserWithRequestAlreadySent, action)
+      const expectedNewState: User = {
+        attributes: {
+          firstName: null,
+        },
+        isLoading: false,
+        isLoggedIn: false,
+      }
+      expect(newState).toEqual(expectedNewState)
+    })
+  })
+
+  describe('SIGNOUT_REQUEST_FAILED', () => {
+    it('indicates that the user is not loading but is stilled logged in', () => {
+      const action: SignOutRequestFailedAction = signOutRequestFailed()
+      const newState: User = currentUser(loggedInUserWithRequestAlreadySent, action)
+      const expectedNewState: User = {
+        ...loggedInUserWithRequestAlreadySent,
+        isLoading: false,
+      }
+      expect(newState).toEqual(expectedNewState)
     })
   })
 })

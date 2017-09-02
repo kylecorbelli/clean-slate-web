@@ -39,6 +39,15 @@ export const SIGNIN_REQUEST_SUCCEEDED: SIGNIN_REQUEST_SUCCEEDED = 'SIGNIN_REQUES
 export type SIGNIN_REQUEST_FAILED = 'SIGNIN_REQUEST_FAILED'
 export const SIGNIN_REQUEST_FAILED: SIGNIN_REQUEST_FAILED = 'SIGNIN_REQUEST_FAILED'
 
+export type SIGNOUT_REQUEST_SENT = 'SIGNOUT_REQUEST_SENT'
+export const SIGNOUT_REQUEST_SENT: SIGNOUT_REQUEST_SENT = 'SIGNOUT_REQUEST_SENT'
+
+export type SIGNOUT_REQUEST_SUCCEEDED = 'SIGNOUT_REQUEST_SUCCEEDED'
+export const SIGNOUT_REQUEST_SUCCEEDED: SIGNOUT_REQUEST_SUCCEEDED = 'SIGNOUT_REQUEST_SUCCEEDED'
+
+export type SIGNOUT_REQUEST_FAILED = 'SIGNOUT_REQUEST_FAILED'
+export const SIGNOUT_REQUEST_FAILED: SIGNOUT_REQUEST_FAILED = 'SIGNOUT_REQUEST_FAILED'
+
 export interface UserRegistrationDetails {
   readonly firstName: string
   readonly email: string
@@ -49,6 +58,12 @@ export interface UserRegistrationDetails {
 export interface UserSignInCredentials {
   readonly email: string
   readonly password: string
+}
+
+export interface UserSignOutCredentials {
+  readonly 'access-token': string
+  readonly client: string
+  readonly uid: string
 }
 
 export interface RegistrationRequestSentAction {
@@ -96,6 +111,18 @@ export interface SignInRequestFailedAction {
   readonly type: SIGNIN_REQUEST_FAILED
 }
 
+export interface SignOutRequestSentAction {
+  readonly type: SIGNOUT_REQUEST_SENT
+}
+
+export interface SignOutRequestSucceededAction {
+  readonly type: SIGNOUT_REQUEST_SUCCEEDED
+}
+
+export interface SignOutRequestFailedAction {
+  readonly type: SIGNOUT_REQUEST_FAILED
+}
+
 export type ReduxAction = RegistrationRequestSentAction
   | RegistrationRequestSucceededAction
   | RegistrationRequestFailedAction
@@ -105,3 +132,6 @@ export type ReduxAction = RegistrationRequestSentAction
   | SignInRequestSentAction
   | SignInRequestSucceededAction
   | SignInRequestFailedAction
+  | SignOutRequestSentAction
+  | SignOutRequestSucceededAction
+  | SignOutRequestFailedAction

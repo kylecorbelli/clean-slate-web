@@ -29,6 +29,6 @@ export const deleteAuthHeaders = (): void => {
 
 export const deleteAuthHeadersFromLocalStorage = (): void => {
   authHeaderKeys.forEach((key: string) => {
-    localStorage.remove(key)
+    localStorage.removeItem(key)
   })
 }
