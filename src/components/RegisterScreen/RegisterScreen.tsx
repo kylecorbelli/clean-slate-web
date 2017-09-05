@@ -16,6 +16,7 @@ interface Props {
 
 interface State {
   readonly firstName: string
+  readonly imageUrl: string
   readonly email: string
   readonly password: string
   readonly passwordConfirmation: string
@@ -27,12 +28,14 @@ export default class RegisterScreen extends React.Component<Props, State> {
     super(props)
     this.state = {
       firstName: '',
+      imageUrl: '',
       email: '',
       password: '',
       passwordConfirmation: '',
       formErrors: [],
     }
     this.updateFirstName = this.updateFirstName.bind(this)
+    this.updateImageUrl = this.updateImageUrl.bind(this)
     this.updateEmail = this.updateEmail.bind(this)
     this.updatePassword = this.updatePassword.bind(this)
     this.updatePasswordConfirmation = this.updatePasswordConfirmation.bind(this)
@@ -42,6 +45,12 @@ export default class RegisterScreen extends React.Component<Props, State> {
   public updateFirstName (event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({
       firstName: event.currentTarget.value,
+    })
+  }
+
+  public updateImageUrl (event: React.ChangeEvent<HTMLInputElement>): void {
+    this.setState({
+      imageUrl: event.currentTarget.value,
     })
   }
 
@@ -71,6 +80,7 @@ export default class RegisterScreen extends React.Component<Props, State> {
     } = this.props
     const {
       firstName,
+      imageUrl,
       email,
       password,
       passwordConfirmation,
@@ -78,6 +88,7 @@ export default class RegisterScreen extends React.Component<Props, State> {
     try {
       await registerUser({
         firstName,
+        imageUrl,
         email,
         password,
         passwordConfirmation,
@@ -106,6 +117,16 @@ export default class RegisterScreen extends React.Component<Props, State> {
                 type="string"
                 className="RegisterScreen__input-field"
                 onChange={this.updateFirstName}
+              />
+            </label>
+          </div>
+          <div className="RegisterScreen__input-group">
+            <label>
+              <p>Image URL:</p>
+              <input
+                type="string"
+                className="RegisterScreen__input-field"
+                onChange={this.updateImageUrl}
               />
             </label>
           </div>

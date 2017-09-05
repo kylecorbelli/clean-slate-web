@@ -1,11 +1,14 @@
 import { connect } from 'react-redux'
 import SiteHeader from '../components/SiteHeader'
 import { ReduxState } from '../redux/types'
-import { signOutUser } from '../redux/actions'
+// import { signOutUser } from '../redux/actions'
+import { signOutUser } from '../redux-token-auth-config'
 
 const mapStateToProps = (state: ReduxState) => {
   const {
-    currentUser,
+    reduxTokenAuth: {
+      currentUser,
+    },
   } = state
   return {
     currentUser,
