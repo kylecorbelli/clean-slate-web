@@ -1,5 +1,6 @@
 export interface UserAttributes {
   readonly firstName: string | null
+  readonly imageUrl: string | null
 }
 
 export interface User {
@@ -9,7 +10,7 @@ export interface User {
 }
 
 export interface ReduxState {
-  readonly currentUser: User
+  readonly reduxTokenAuth: any
 }
 
 export type REGISTRATION_REQUEST_SENT = 'REGISTRATION_REQUEST_SENT'
@@ -50,6 +51,7 @@ export const SIGNOUT_REQUEST_FAILED: SIGNOUT_REQUEST_FAILED = 'SIGNOUT_REQUEST_F
 
 export interface UserRegistrationDetails {
   readonly firstName: string
+  readonly imageUrl: string
   readonly email: string
   readonly password: string
   readonly passwordConfirmation: string

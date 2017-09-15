@@ -3,11 +3,14 @@ import {
 } from './types'
 
 const initialState: ReduxState = {
-  currentUser: {
-    isLoggedIn: false,
-    isLoading: false,
-    attributes: {
-      firstName: null,
+  reduxTokenAuth: {
+    currentUser: {
+      isLoggedIn: false,
+      isLoading: false,
+      attributes: {
+        firstName: null,
+        imageUrl: null,
+      },
     },
   },
 }

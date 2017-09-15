@@ -1,11 +1,11 @@
-import axios from 'axios'
-import { authUrl } from '../../constants'
-import { Dispatch } from 'redux'
+// import axios from 'axios'
+// import { authUrl } from '../../constants'
+// import { Dispatch } from 'redux'
 import {
   UserAttributes,
-  UserRegistrationDetails,
-  UserSignInCredentials,
-  UserSignOutCredentials,
+  // UserRegistrationDetails,
+  // UserSignInCredentials,
+  // UserSignOutCredentials,
   REGISTRATION_REQUEST_SENT,
   REGISTRATION_REQUEST_SUCCEEDED,
   REGISTRATION_REQUEST_FAILED,
@@ -32,14 +32,14 @@ import {
   SignOutRequestFailedAction,
 } from '../types'
 import {
-  AuthResponse,
-  VerificationParams,
+  // AuthResponse,
+  // VerificationParams,
 } from '../../types'
 import {
-  setAuthHeaders,
-  deleteAuthHeaders,
-  persistAuthHeadersInLocalStorage,
-  deleteAuthHeadersFromLocalStorage,
+  // setAuthHeaders,
+  // deleteAuthHeaders,
+  // persistAuthHeadersInLocalStorage,
+  // deleteAuthHeadersFromLocalStorage,
 } from '../../services/auth'
 
 export const registrationRequestSent = (): RegistrationRequestSentAction => ({
@@ -57,38 +57,38 @@ export const registrationRequestFailed = (): RegistrationRequestFailedAction => 
   type: REGISTRATION_REQUEST_FAILED,
 })
 
-export const registerUser = (
-  userRegistrationDetails: UserRegistrationDetails,
-) => async function (dispatch: Dispatch<{}>): Promise<void> {
-  dispatch(registrationRequestSent())
-  const {
-    firstName,
-    email,
-    password,
-    passwordConfirmation,
-  } = userRegistrationDetails
-  try {
-    const response: AuthResponse = await axios({
-      method: 'POST',
-      url: authUrl,
-      data: {
-        email,
-        name: firstName,
-        password,
-        password_confirmation: passwordConfirmation,
-      },
-    })
-    setAuthHeaders(response.headers)
-    persistAuthHeadersInLocalStorage(response.headers)
-    const userAttributes: UserAttributes = {
-      firstName,
-    }
-    dispatch(registrationRequestSucceeded(userAttributes))
-  } catch (error) {
-    dispatch(registrationRequestFailed())
-    throw error
-  }
-}
+// export const registerUser = (
+//   userRegistrationDetails: UserRegistrationDetails,
+// ) => async function (dispatch: Dispatch<{}>): Promise<void> {
+//   dispatch(registrationRequestSent())
+//   const {
+//     firstName,
+//     email,
+//     password,
+//     passwordConfirmation,
+//   } = userRegistrationDetails
+//   try {
+//     const response: AuthResponse = await axios({
+//       method: 'POST',
+//       url: authUrl,
+//       data: {
+//         email,
+//         name: firstName,
+//         password,
+//         password_confirmation: passwordConfirmation,
+//       },
+//     })
+//     setAuthHeaders(response.headers)
+//     persistAuthHeadersInLocalStorage(response.headers)
+//     const userAttributes: UserAttributes = {
+//       firstName,
+//     }
+//     dispatch(registrationRequestSucceeded(userAttributes))
+//   } catch (error) {
+//     dispatch(registrationRequestFailed())
+//     throw error
+//   }
+// }
 
 export const verifyTokenRequestSent = (): VerifyTokenRequestSentAction => ({
   type: VERIFY_TOKEN_REQUEST_SENT,
@@ -105,27 +105,27 @@ export const verifyTokenRequestFailed = (): VerifyTokenRequestFailedAction => ({
   type: VERIFY_TOKEN_REQUEST_FAILED,
 })
 
-export const verifyToken = (
-  verificationParams: VerificationParams,
-) => async function (dispatch: Dispatch<{}>): Promise<void> {
-  dispatch(verifyTokenRequestSent())
-  try {
-    const response = await axios({
-      method: 'GET',
-      url: `${authUrl}/validate_token`,
-      params: verificationParams,
-    })
-    const { name } = response.data.data
-    setAuthHeaders(response.headers)
-    persistAuthHeadersInLocalStorage(response.headers)
-    const userAttributes: UserAttributes = {
-      firstName: name,
-    }
-    dispatch(verifyTokenRequestSucceeded(userAttributes))
-  } catch (error) {
-    dispatch(verifyTokenRequestFailed())
-  }
-}
+// export const verifyToken = (
+//   verificationParams: VerificationParams,
+// ) => async function (dispatch: Dispatch<{}>): Promise<void> {
+//   dispatch(verifyTokenRequestSent())
+//   try {
+//     const response = await axios({
+//       method: 'GET',
+//       url: `${authUrl}/validate_token`,
+//       params: verificationParams,
+//     })
+//     const { name } = response.data.data
+//     setAuthHeaders(response.headers)
+//     persistAuthHeadersInLocalStorage(response.headers)
+//     const userAttributes: UserAttributes = {
+//       firstName: name,
+//     }
+//     dispatch(verifyTokenRequestSucceeded(userAttributes))
+//   } catch (error) {
+//     dispatch(verifyTokenRequestFailed())
+//   }
+// }
 
 export const signInRequestSent = (): SignInRequestSentAction => ({
   type: SIGNIN_REQUEST_SENT,
@@ -142,35 +142,35 @@ export const signInRequestFailed = (): SignInRequestFailedAction => ({
   type: SIGNIN_REQUEST_FAILED,
 })
 
-export const signInUser = (
-  userSignInCredentials: UserSignInCredentials,
-) => async function (dispatch: Dispatch<{}>): Promise<void> {
-  dispatch(signInRequestSent())
-  const {
-    email,
-    password,
-  } = userSignInCredentials
-  try {
-    const response = await axios({
-      method: 'POST',
-      url: `${authUrl}/sign_in`,
-      data: {
-        email,
-        password,
-      },
-    })
-    setAuthHeaders(response.headers)
-    persistAuthHeadersInLocalStorage(response.headers)
-    const { name } = response.data.data
-    const userAttributes: UserAttributes = {
-      firstName: name,
-    }
-    dispatch(signInRequestSucceeded(userAttributes))
-  } catch (error) {
-    dispatch(signInRequestFailed())
-    throw error
-  }
-}
+// export const signInUser = (
+//   userSignInCredentials: UserSignInCredentials,
+// ) => async function (dispatch: Dispatch<{}>): Promise<void> {
+//   dispatch(signInRequestSent())
+//   const {
+//     email,
+//     password,
+//   } = userSignInCredentials
+//   try {
+//     const response = await axios({
+//       method: 'POST',
+//       url: `${authUrl}/sign_in`,
+//       data: {
+//         email,
+//         password,
+//       },
+//     })
+//     setAuthHeaders(response.headers)
+//     persistAuthHeadersInLocalStorage(response.headers)
+//     const { name } = response.data.data
+//     const userAttributes: UserAttributes = {
+//       firstName: name,
+//     }
+//     dispatch(signInRequestSucceeded(userAttributes))
+//   } catch (error) {
+//     dispatch(signInRequestFailed())
+//     throw error
+//   }
+// }
 
 export const signOutRequestSent = (): SignOutRequestSentAction => ({
   type: SIGNOUT_REQUEST_SENT,
@@ -184,21 +184,21 @@ export const signOutRequestFailed = (): SignOutRequestFailedAction => ({
   type: SIGNOUT_REQUEST_FAILED,
 })
 
-export const signOutUser = (
-  userSignOutCredentials: UserSignOutCredentials,
-) => async function (dispatch: Dispatch<{}>): Promise<void> {
-  dispatch(signOutRequestSent())
-  try {
-    await axios({
-      method: 'DELETE',
-      url: `${authUrl}/sign_out`,
-      data: userSignOutCredentials,
-    })
-    deleteAuthHeaders()
-    deleteAuthHeadersFromLocalStorage()
-    dispatch(signOutRequestSucceeded())
-  } catch (error) {
-    dispatch(signOutRequestFailed())
-    throw error
-  }
-}
+// export const signOutUser = (
+//   userSignOutCredentials: UserSignOutCredentials,
+// ) => async function (dispatch: Dispatch<{}>): Promise<void> {
+//   dispatch(signOutRequestSent())
+//   try {
+//     await axios({
+//       method: 'DELETE',
+//       url: `${authUrl}/sign_out`,
+//       data: userSignOutCredentials,
+//     })
+//     deleteAuthHeaders()
+//     deleteAuthHeadersFromLocalStorage()
+//     dispatch(signOutRequestSucceeded())
+//   } catch (error) {
+//     dispatch(signOutRequestFailed())
+//     throw error
+//   }
+// }
